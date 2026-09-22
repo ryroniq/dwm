@@ -67,7 +67,7 @@ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
 	   NetWMFullscreen, NetActiveWindow, NetWMWindowType,
 	   NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
 enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms */
-enum { ClkClass, ClkDesktop, ClkTag, ClkLayout, ClkLayoutParam,
+enum { ClkClass, ClkTag, ClkLayout, ClkLayoutParam,
 	   ClkClientList, ClkClientWin, ClkRootWin, ClkLast }; /* clicks */
 
 typedef union {
@@ -120,7 +120,6 @@ typedef struct {
 } ClassRule;
 
 typedef struct Monitor Monitor;
-typedef struct Desktop Desktop;
 typedef struct Client Client;
 struct Client {
 	char name[256];
@@ -2541,6 +2540,7 @@ sendmon(Client *c, Monitor *m)
 	unfocus(c, 1);
 	detach(c);
 	detachstack(c);
+	c->mon = m;
 	attach(c);
 	attachstack(c);
 	if (c->isfullscreen)
@@ -3308,6 +3308,7 @@ updategeom(void)
 				dirty = 1;
 				m->clients = c->next;
 				detachstack(c);
+				c->mon = mons;
 				attach(c);
 				attachstack(c);
 			}

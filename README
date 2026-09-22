@@ -2,6 +2,14 @@ dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
 
+This is a personal fork of dwm 6.8 with a custom tagging model: tags are a
+dynamic, resizable set (not the fixed 1-9 of stock dwm) that can be created,
+removed, reordered and swapped at runtime, and windows can additionally be
+browsed grouped by WM_CLASS instead of by tag. See CLAUDE.md for the details
+of both systems and config.def.h for the resulting keybindings, which differ
+substantially from stock dwm's. dwm.1 still documents the stock behavior and
+is out of date for this fork.
+
 
 Requirements
 ------------
@@ -17,6 +25,14 @@ Afterwards enter the following command to build and install dwm (if
 necessary as root):
 
     make clean install
+
+config.h is generated from config.def.h only if it doesn't already exist, so
+after editing config.def.h run `rm config.h` (or `make clean`) before
+rebuilding, or your changes will be silently ignored.
+
+To run the tag-bitmask arithmetic regression test (no X11 required):
+
+    make test
 
 
 Running dwm
